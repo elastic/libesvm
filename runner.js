@@ -1,5 +1,4 @@
-var releases = require('./lib/releases');
-var loader = require('./index');
+var esvm = require('./index');
 var Node = require('./lib/node');
 var path = require('path');
 var clc = require('cli-color');
@@ -7,34 +6,36 @@ var moment = require('moment');
 
 var options = {
   version: '~1.2.0',
-  directory: __dirname+'/releases',
+  directory: process.env.HOME+'/.esvm',
   plugins: ['elasticsearch/marvel/latest'],
   purge: true, // Purge the data directory
   fresh: false, // Download a fresh copy
   nodes: 2,
   config: {
     cluster: {
-      name: "My Test Cluster"
+      name: 'My Test Cluster'
     }
   }
 };
  
-var cluster = loader.createCluster(options);
+var cluster = esvm.createCluster(options);
 
 var levels = {
   INFO: clc.green,
   DEBUG: clc.cyan,
   WARN: clc.yellow,
   FATAL: clc.magentaBright,
-  ERROR: clc.red
+  ERROR: clc.white.bgRed
 };
 
 cluster.on('log', function (log) {
   var level = levels[log.level] || function (msg) { return msg; };
   var message = clc.blackBright(moment(log.timestamp).format('lll'));
   message += ' '+level(log.level);
-  message += ' ' + clc.yellow(log.type);
-  if (log.node) message += ' ' + clc.magenta(log.node) + ': ';
+  if (log.node) {
+    message += ' ' + clc.magenta(log.node);
+  }
+  message += ' ' + clc.yellow(log.type) + ' ';
   message += log.message;
   console.log(message);
 });
@@ -46,7 +47,7 @@ cluster.download().then(function () {
 }).then(function () {
   process.on('SIGINT', function () {
     cluster.shutdown().then(function () {
-      console.log(clc.white.bgGreen("Bye Bye!"));
+      console.log(clc.black.bgWhite("Bye Bye!"));
       process.exit();
     });
   });

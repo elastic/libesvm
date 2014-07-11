@@ -29,7 +29,8 @@
     "request": "~2.36.0",
     "rimraf": "~2.2.8",
     "semver": "~2.3.0",
-    "tar": "~0.1.19"
+    "tar": "~0.1.19",
+    "temp": "^0.8.0"
   },
   "devDependencies": {
     "chai": "~1.9.1"
