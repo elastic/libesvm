@@ -3,7 +3,7 @@ libesvm
 
 ## !!!! DO NOT USE THIS IN PRODUCTION !!!!
 
-This is a library for managing Elasticsearch instances for testing and development enviroments. It's not intended to be used in production (just don't).
+This is a library for managing Elasticsearch instances for testing and development environments. It's not intended to be used in production (just don't).
 
 ```
 var esvm = require('libesvm');
