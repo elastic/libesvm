@@ -5,7 +5,7 @@ libesvm
 
 This is a library for managing Elasticsearch instances for testing and development environments. It's not intended to be used in production (just don't).
 
-```
+```javascript
 var esvm = require('libesvm');
 var cluster = libesvm.createCluster(options);
 
