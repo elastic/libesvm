@@ -1,24 +1,24 @@
 {
   "name": "elastic-loader",
-  "version": "0.0.0",
-  "description": "elastic-loader ==============",
+  "version": "0.0.1",
+  "description": "libesvm is a library for managning an Elasticsearch process for development and testing.",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/ccowan/elastic-loader.git"
+    "url": "git://github.com/ccowan/libesvm.git"
   },
   "keywords": [
     "elasticsearch"
   ],
   "author": "Chris Cowan",
-  "license": "ISC",
+  "license": "Apache 2.0",
   "bugs": {
-    "url": "https://github.com/ccowan/elastic-loader/issues"
+    "url": "https://github.com/ccowan/libesvm/issues"
   },
-  "homepage": "https://github.com/ccowan/elastic-loader",
+  "homepage": "https://github.com/ccowan/libesvm",
   "dependencies": {
     "bluebird": "~2.1.2",
     "bunyan": "~0.23.1",
@@ -33,6 +33,7 @@
     "temp": "^0.8.0"
   },
   "devDependencies": {
-    "chai": "~1.9.1"
+    "chai": "~1.9.1",
+    "mocha": "*"
   }
 }
