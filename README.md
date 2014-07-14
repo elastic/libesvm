@@ -7,7 +7,6 @@ This is a library for managing Elasticsearch instances for testing and developme
 
 ```javascript
 var esvm = require('libesvm');
-var cluster = libesvm.createCluster(options);
 
 var options = {
   version: '~1.2.0',
@@ -22,6 +21,8 @@ var options = {
     }
   }
 };
+
+var cluster = libesvm.createCluster(options);
 
 cluster.download().then(function () {
   return cluster.installPlugins();

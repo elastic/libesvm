@@ -1,5 +1,5 @@
 {
-  "name": "elastic-loader",
+  "name": "libesvm",
   "version": "0.0.1",
   "description": "libesvm is a library for managning an Elasticsearch process for development and testing.",
   "main": "index.js",
