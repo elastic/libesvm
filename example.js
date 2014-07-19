@@ -1,5 +1,4 @@
 var esvm        = require('./index');
-var Node        = require('./lib/node');
 var path        = require('path');
 var clc         = require('cli-color');
 var moment      = require('moment');
@@ -7,10 +6,7 @@ var _           = require('lodash');
 var ProgressBar = require('progress');
 
 var options = {
-  // version: '~1.2.0',
-  // branch: 'master',
-  binary: '/Users/ccowan/Downloads/elasticsearch-1.2.2.tar.gz',
-  // binary: 'https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.2.2.tar.gz',
+  version: '~1.2.0',
   directory: process.env.HOME+'/.esvm',
   plugins: ['elasticsearch/marvel/latest'],
   purge: true, // Purge the data directory
