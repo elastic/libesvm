@@ -1,15 +1,20 @@
-var esvm = require('./index');
-var Node = require('./lib/node');
-var path = require('path');
-var clc = require('cli-color');
-var moment = require('moment');
+var esvm        = require('./index');
+var Node        = require('./lib/node');
+var path        = require('path');
+var clc         = require('cli-color');
+var moment      = require('moment');
+var _           = require('lodash');
+var ProgressBar = require('progress');
 
 var options = {
-  version: '~1.2.0',
+  // version: '~1.2.0',
+  // branch: 'master',
+  binary: '/Users/ccowan/Downloads/elasticsearch-1.2.2.tar.gz',
+  // binary: 'https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.2.2.tar.gz',
   directory: process.env.HOME+'/.esvm',
   plugins: ['elasticsearch/marvel/latest'],
   purge: true, // Purge the data directory
-  fresh: false, // Download a fresh copy
+  fresh: true, // Download a fresh copy
   nodes: 2,
   config: {
     cluster: {
@@ -29,6 +34,19 @@ var levels = {
 };
 
 cluster.on('log', function (log) {
+  var bar, pattern;
+  if (log.type === 'progress') {
+    pattern = log.op + ' [:bar] :percent :etas';
+    bar = new ProgressBar(pattern, {
+      complete: '=',
+      incomplete: ' ',
+      width: 80,
+      clear: true,
+      total: log.total
+    });
+    log.on('progress', _.bindKey(bar, 'tick'));
+    return;
+  }
   var level = levels[log.level] || function (msg) { return msg; };
   var message = clc.blackBright(moment(log.timestamp).format('lll'));
   message += ' '+level(log.level);
@@ -40,7 +58,7 @@ cluster.on('log', function (log) {
   console.log(message);
 });
 
-cluster.download().then(function () {
+cluster.install().then(function () {
  return cluster.installPlugins();
 }).then(function () {
  return cluster.start(); 
