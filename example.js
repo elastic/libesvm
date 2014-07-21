@@ -9,8 +9,8 @@ var options = {
   version: '~1.2.0',
   directory: process.env.HOME+'/.esvm',
   plugins: ['elasticsearch/marvel/latest'],
-  purge: true, // Purge the data directory
-  fresh: true, // Download a fresh copy
+  purge: false, // Purge the data directory
+  fresh: false, // Download a fresh copy
   nodes: 2,
   config: {
     cluster: {
