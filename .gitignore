@@ -27,4 +27,4 @@ node_modules
 
 .cache.json
 cache.json
-releases
+.releases
