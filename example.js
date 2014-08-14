@@ -4,22 +4,19 @@ var clc         = require('cli-color');
 var moment      = require('moment');
 var _           = require('lodash');
 var ProgressBar = require('progress');
+var os          = require('os');
 
 var options = {
-  version: '~1.2.0',
+  version: '*',
   directory: process.env.HOME+'/.esvm',
   plugins: ['elasticsearch/marvel/latest'],
   purge: false, // Purge the data directory
   fresh: false, // Download a fresh copy
-  nodes: 2,
+  nodes: 1,
   config: {
-    cluster: {
-      name: 'My Test Cluster'
-    }
+    cluster: { name: os.hostname() }
   }
 };
- 
-var cluster = esvm.createCluster(options);
 
 var levels = {
   INFO: clc.green,
@@ -29,6 +26,7 @@ var levels = {
   ERROR: clc.white.bgRed
 };
 
+var cluster = esvm.createCluster(options);
 cluster.on('log', function (log) {
   var bar, pattern;
   if (log.type === 'progress') {
@@ -57,7 +55,7 @@ cluster.on('log', function (log) {
 cluster.install().then(function () {
  return cluster.installPlugins();
 }).then(function () {
- return cluster.start(); 
+ return cluster.start();
 }).then(function () {
   process.on('SIGINT', function () {
     cluster.shutdown().then(function () {
