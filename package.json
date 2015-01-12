@@ -30,8 +30,10 @@
     "request": "~2.36.0",
     "rimraf": "~2.2.8",
     "semver": "~2.3.0",
+    "split": "~0.3.2",
     "tar": "~0.1.19",
-    "temp": "^0.8.0"
+    "temp": "^0.8.0",
+    "through2": "~0.6.3"
   },
   "devDependencies": {
     "chai": "~1.9.1",
