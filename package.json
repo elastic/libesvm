@@ -38,8 +38,10 @@
   "devDependencies": {
     "chai": "~1.9.1",
     "cli-color": "^0.3.2",
+    "connect": "^3.3.5",
     "mocha": "*",
     "moment": "^2.7.0",
-    "progress": "^1.1.7"
+    "progress": "^1.1.7",
+    "sinon": "^1.14.1"
   }
 }
