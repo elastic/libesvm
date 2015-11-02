@@ -31,7 +31,7 @@
     "properties-parser": "^0.2.3",
     "request": "~2.65.0",
     "rimraf": "~2.2.8",
-    "semver": "~2.3.0",
+    "semver": "~4.3.6",
     "split": "~0.3.2",
     "tar": "~0.1.19",
     "temp": "^0.8.0",
