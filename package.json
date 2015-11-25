@@ -1,6 +1,6 @@
 {
   "name": "libesvm",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "libesvm is a library for managning an Elasticsearch process for development and testing.",
   "main": "index.js",
   "scripts": {
