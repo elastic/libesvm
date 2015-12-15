@@ -4,7 +4,8 @@ var path = require('path');
 var fs = require('fs');
 var Promise = require('bluebird');
 var expect = require('chai').expect;
-var temp = require("temp");
+var temp = require('temp').track();
+var bcrypt = require('bcryptjs');
 var config = require('./fixtures/config');
 var writeShieldConfig = require('../lib/writeShieldConfig');
 
@@ -47,11 +48,11 @@ describe('writeShieldConfig', function () {
     });
   });
 
-  // after(function (done) {
-  //   temp.cleanup(done);
-  // });
+  after(function (done) {
+    temp.cleanup(done);
+  });
 
-  describe('Create users', function () {
+  describe('Creating users for Shield', function () {
     before(function () {
       return writter(tmpDir);
     });
@@ -75,6 +76,25 @@ describe('writeShieldConfig', function () {
 
       shieldUsers.forEach(function (user) {
         expect(users).to.contain(user.username);
+      });
+    });
+
+    it('should use bcrypted passwords', function () {
+      var contents = readFile('users');
+      var users = contents.split('\n').map(function (user) {
+        return {
+          username: user.split(':')[0],
+          hash: user.split(':')[1],
+        };
+      });
+
+      shieldUsers.forEach(function (shieldUser) {
+        var user = users.reduce(function (match, user) {
+          if (match) return match;
+          if (user.username === shieldUser.username) return user;
+        });
+
+        expect(bcrypt.compareSync(shieldUser.password, user.hash)).to.be.true;
       })
     });
   });
