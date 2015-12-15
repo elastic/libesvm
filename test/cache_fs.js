@@ -20,19 +20,29 @@ describe('Cache', function() {
       });
     });
 
-    it('should save a new value', function (done) {
-      temp.open('value-test', function (err, filename) {
+    it('should save a new value on set', function (done) {
+      temp.open('set-test', function (err, filename) {
         cache.source = filename.path;
-        cache.set('myTest', 'test');
-        cache.save(function (err) {
-          if (err) return done(err);
+        cache.set('myTest', 'test', function (err) {
+          var contents = fs.readFileSync(filename.path, { encoding: 'utf8' });
+          var data = JSON.parse(contents);
 
-          fs.readFile(filename.path, { encoding: 'utf8' }, function (err, contents) {
-            if (err) return done(err);
+          expect(data).to.have.property('myTest', 'test');
+          done();
+        });
+      });
+    });
 
+    it('should save a new value on save', function (done) {
+      temp.open('save-test', function (err, filename) {
+        cache.source = filename.path;
+        cache.set('myTest', 'test')
+        .then(function () {
+          cache.save(function (err) {
+            var contents = fs.readFileSync(filename.path, { encoding: 'utf8' });
             var data = JSON.parse(contents);
+
             expect(data).to.have.property('myTest', 'test');
-            // console.log(contents, data);
             done();
           });
         });
