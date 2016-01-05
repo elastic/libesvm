@@ -23,8 +23,8 @@
   },
   "homepage": "https://github.com/ccowan/libesvm",
   "dependencies": {
-    "bcrypt": "^0.8.5",
-    "bluebird": "~2.1.2",
+    "bcryptjs": "^2.3.0",
+    "bluebird": "~2.10.2",
     "fs-extra": "^0.24.0",
     "glob": "^6.0.1",
     "lodash": "~2.4.1",
@@ -46,6 +46,7 @@
     "connect": "^3.3.5",
     "mocha": "*",
     "progress": "^1.1.7",
-    "sinon": "^1.14.1"
+    "sinon": "^1.14.1",
+    "temp": "^0.8.3"
   }
 }
