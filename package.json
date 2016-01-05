@@ -17,7 +17,7 @@
   "contributors": [
     "Spencer Alger <spencer@spenceralger.com>"
   ],
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/ccowan/libesvm/issues"
   },
