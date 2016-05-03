@@ -36,13 +36,14 @@ describe('write temp config', function () {
   });
 
   it('should create a temp folder with configs', function() {
-    return writeTempConfig({foo: 'bar'}, mockConfigFolder)
+    return writeTempConfig({foo: 'bar'}, 'INFO', mockConfigFolder)
     .then(function(path) {
       return fs.readdirAsync(path);
     })
     .then(function(files) {
       expect(files).to.contain('elasticsearch.json');
-      expect(files).to.contain('logging.yml');
+      expect(files).to.contain('logging.json');
+      expect(files).to.not.contain('logging.yml');
       expect(files).to.not.contain('elasticsearch.yaml');
     });
   });
