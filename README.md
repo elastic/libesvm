@@ -31,6 +31,7 @@ This will create a new instance of the cluster. The first object is the options 
 * `purge`     - Purge the data directory when starting the server (Default: false).
 * `fresh`     - Remove the current copy before installing a new copy (Default: false).
 * `nodes`     - The number of nodes to start. This can either be a number or an array of config objects (1 per node)
+* `logLevel`  - Set elasticsearch's log level. (Default is `INFO`, options are `OFF`, `FATAL`, `ERROR`, `WARN`, `INFO`, `DEBUG`, `TRACE`, and `ALL`). *Note: esvm requires that the `node` and `http` modules have a minimum of `INFO` level, though you can set all other modules to lower than `INFO` using this setting*
 * `config`    - The config to start the server with.
 
 #### Events
@@ -62,7 +63,7 @@ var options = {
     }
   }
 };
- 
+
 var cluster = libesvm.createCluster(options);
 
 var levels = {
@@ -101,7 +102,7 @@ cluster.on('log', function (log) {
 cluster.install().then(function () {
  return cluster.installPlugins();
 }).then(function () {
- return cluster.start(); 
+ return cluster.start();
 }).then(function () {
   process.on('SIGINT', function () {
     cluster.shutdown().then(function () {
@@ -115,4 +116,3 @@ cluster.install().then(function () {
 });
 
 ```
-
