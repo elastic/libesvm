@@ -9,52 +9,53 @@ var join = require('path').join;
 temp.track();
 
 function writeMockConfig(done) {
-  temp.mkdirAsync('mockFiles').then(function(dir) {
-    return fs.mkdirAsync(join(dir, 'config')).then(function() {
+  return temp.mkdirAsync('mockFiles')
+  .then(function(dir) {
+    return fs.mkdirAsync(join(dir, 'config'))
+    .then(function() {
       var tempFiles = ['elasticsearch.json', 'logging.yml'];
-      return Promise.all(tempFiles.map(function(file) {
+      return Promise.map(tempFiles, function(file) {
         return fs.writeFileAsync(join(dir, 'config', file), '');
-      }));
-    }).then(function() {
-      done(dir);
-    });
+      });
+    })
+    .thenReturn(dir);
   });
 }
 
-function removeMockConfig(done) {
-  temp.cleanupAsync().then(function(stats) {
-    done();
-  });
+function removeMockConfig() {
+  return temp.cleanupAsync();
 }
 
 describe('write temp config', function () {
   var mockConfigFolder;
-  beforeEach(function(done) {
-    writeMockConfig(function(dir) {
+  beforeEach(function() {
+    return writeMockConfig()
+    .then(function (dir) {
       mockConfigFolder = dir;
-      done();
     });
   });
 
-  it('should create a temp folder with configs', function(done) {
-    writeTempConfig({foo: 'bar'}, mockConfigFolder).then(function(path) {
+  it('should create a temp folder with configs', function() {
+    return writeTempConfig({foo: 'bar'}, mockConfigFolder)
+    .then(function(path) {
       return fs.readdirAsync(path);
-    }).then(function(files) {
-      expect(files.indexOf('elasticsearch.json')).to.be.above(-1);
-      expect(files.indexOf('logging.yml')).to.be.above(-1);
-      done();
+    })
+    .then(function(files) {
+      expect(files).to.contain('elasticsearch.json');
+      expect(files).to.contain('logging.yml');
+      expect(files).to.not.contain('elasticsearch.yaml');
     });
   });
 
-  afterEach(function(done) {
-    removeMockConfig(function() {
-      fs.readdirAsync(mockConfigFolder).then(function(files) {
-        throw new Error('mock config should be cleaned up');
-      }, function(err) {
-        expect(err.cause.code).to.equal('ENOENT');
-        done();
-      });
+  afterEach(function() {
+    return removeMockConfig()
+    .then(function () {
+      return fs.readdirAsync(mockConfigFolder);
+    })
+    .then(function(files) {
+      throw new Error('mock config should be cleaned up');
+    }, function(err) {
+      expect(err.cause.code).to.equal('ENOENT');
     });
   });
 });
-
