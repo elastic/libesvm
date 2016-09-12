@@ -36,7 +36,14 @@ describe('write temp config', function () {
   });
 
   it('should create a temp folder with configs', function() {
-    return writeTempConfig({foo: 'bar'}, 'INFO', mockConfigFolder)
+    return writeTempConfig({
+      config: {foo: 'bar'},
+      logLevel: 'INFO',
+      esPath: mockConfigFolder,
+      features: {
+        usesLoggingYaml: true
+      }
+    })
     .then(function(path) {
       return fs.readdirAsync(path);
     })
