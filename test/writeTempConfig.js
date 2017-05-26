@@ -13,7 +13,7 @@ function writeMockConfig(done) {
   .then(function(dir) {
     return fs.mkdirAsync(join(dir, 'config'))
     .then(function() {
-      var tempFiles = ['elasticsearch.json', 'logging.yml'];
+      var tempFiles = ['elasticsearch.yml', 'logging.yml'];
       return Promise.map(tempFiles, function(file) {
         return fs.writeFileAsync(join(dir, 'config', file), '');
       });
@@ -48,10 +48,9 @@ describe('write temp config', function () {
       return fs.readdirAsync(path);
     })
     .then(function(files) {
-      expect(files).to.contain('elasticsearch.json');
+      expect(files).to.contain('elasticsearch.yml');
       expect(files).to.contain('logging.json');
       expect(files).to.not.contain('logging.yml');
-      expect(files).to.not.contain('elasticsearch.yaml');
     });
   });
 
