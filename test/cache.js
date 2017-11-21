@@ -27,22 +27,20 @@ describe('Cache', function() {
       temp.cleanup(done);
     });
 
-    it('should return valid data', function(done) {
-      cache.get('bar').then(function (val) {
+    it('should return valid data', function() {
+      return cache.get('bar').then(function (val) {
         expect(val).to.equal('foo');
-        done();
       });
     });
 
-    it('should return undefined for invalid data', function(done) {
-      cache.get('monkey').then(function (val) {
+    it('should return undefined for invalid data', function() {
+      return cache.get('monkey').then(function (val) {
         expect(val).to.be.an('undefined');
-        done();
       });
     });
 
     it('should set a new value', function() {
-      cache.set('name', 'test').then(function () {
+      return cache.set('name', 'test').then(function () {
         return cache.get('name');
       })
       .then(function (val) {
@@ -50,5 +48,23 @@ describe('Cache', function() {
       });
     });
 
+    it('should allow clearing the cache', function () {
+      return cache.set('foo', 'bar')
+        .then(function () {
+          return cache.get('foo')
+        })
+        .then(function (value) {
+          expect(value).to.equal('bar')
+        })
+        .then(function () {
+          return cache.clear();
+        })
+        .then(function () {
+          return cache.get('foo')
+        })
+        .then(function (value) {
+          expect(value).to.equal(undefined)
+        })
+    })
   });
 });
