@@ -28,3 +28,4 @@ node_modules
 cache.json
 .releases
 .DS_Store
+yarn.lock
