@@ -54,7 +54,6 @@
     "cli-color": "^0.3.2",
     "connect": "^3.3.5",
     "del": "^2.2.2",
-    "mkdirp": "^0.5.1",
     "mocha": "*",
     "progress": "^1.1.7",
     "sinon": "^1.14.1"

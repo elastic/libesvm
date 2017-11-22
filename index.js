@@ -1,5 +1,6 @@
 var loader = module.exports;
 var Cluster = require('./lib/cluster');
+var cache = require('./lib/cache');
 
 /**
  * var options = {
@@ -8,7 +9,7 @@ var Cluster = require('./lib/cluster');
  *   plugins: ['elasticsearch/marvel/latest'],
  *   purge: true, // Purge the data directory
  *   fresh: true, // Download a fresh copy
- *   loggerStreams: [ process.stdout ], // Bunyan Streams 
+ *   loggerStreams: [ process.stdout ], // Bunyan Streams
  *   config: {
  *     'cluster.name': 'My Test Cluster',
  *     'http.port': 9200
@@ -26,3 +27,10 @@ loader.createCluster = function (options, cb) {
   return cluster;
 };
 
+/**
+ * Clear the libesvm cache file
+ * @return {[type]} [description]
+ */
+loader.clearCache = function () {
+  return cache.clear()
+}
