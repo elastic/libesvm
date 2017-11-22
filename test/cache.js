@@ -65,6 +65,16 @@ describe('Cache', function() {
         .then(function (value) {
           expect(value).to.equal(undefined)
         })
+        .then(function () {
+          return cache.clear();
+        })
+    })
+
+    it('should continue if clearing cache but no cache exists', function () {
+      return cache.clear()
+        .then(function(value) {
+          expect(value).to.equal(undefined);
+        })
     })
   });
 });
