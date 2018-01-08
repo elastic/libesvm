@@ -39,7 +39,7 @@
     "node-uuid": "^1.4.7",
     "properties-parser": "^0.2.3",
     "rcloader": "^0.1.4",
-    "request": "~2.65.0",
+    "request": "^2.83.0",
     "rimraf": "~2.2.8",
     "semver": "~4.3.6",
     "split": "~0.3.2",
