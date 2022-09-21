@@ -1,3 +1,10 @@
+> **Warning**
+> 
+> This repository is very old, unused, and the snapshot builds have not been updated or received security updates for years. Because this infrastructure is no longer necessary for development in modern versions of Kibana (including the not-very-modern version 6.8), we have shut down esvm and the online snapshot store. You should still be able to use libesvm to start clusters from locally created builds if you like, or point it to an artifact that you host yourself.
+> 
+> If you're building a Kibana plugin you should be able to use `node scripts/es snapshot` in the Kibana repository to start a recent snapshot of Elasticsearch which is regularly updated and tracks the version of Kibana you have checked-out.
+>
+
 libesvm
 ==============
 
